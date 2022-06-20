@@ -5,6 +5,7 @@ date: "`r format (Sys.time (), '%d %B, %Y')`"
 output:
   pdf_document: default
   html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -243,26 +244,22 @@ print(linkerrwe)
 ### *Data dictionary*
 Constructing a data dictionary for a CollectedDatarwe_amendeddate data frame with the aid of the linkerrwe data frame between using the `build_dict()` function from the *dataMeta*.
 ```{r dictionaryrwe}
-dictionaryrwe <- build_dict(my.data = CollectedDatarwe_amendeddate, linker = linkerrwe)
-#When running this code, it appeared with a prompt to add description for the 
-#variables - if added, this appears in the Notes column. Had to press enter to 
-#leave the entries blank, but the Notes column then gets populated by the next 
-#chunk of code. I was not able to get to the bottom of why this prompt appeared in 
-#my code but not in the course material example. Having looked it up on the 
-#internet, I suspect it's something to do with prompt defaults on my software. 
-#Maybe something to do with prompt_varopts.
+dictionaryrwe <- build_dict(my.data = CollectedDatarwe_amendeddate, linker = linkerrwe, option_description = NULL, 
+prompt_varopts = FALSE)
 glimpse(dictionaryrwe)
 ```
 
 ```{r notes}
-dictionaryrwe[15,4]<-"other: Other types of A&E/minor injury activity with designated accommodation for the reception of accident and emergency patients."
-dictionaryrwe[16,4]<-"1: Emergency departments are a consultant-led 24-hour service with full resuscitation facilities and designated accommodation for the reception of accident and emergency patients."
+dictionaryrwe[16,4]<-"other: Other types of A&E/minor injury activity with designated accommodation for the reception of accident and emergency patients."
+dictionaryrwe[18,4]<-"1: Emergency departments are a consultant-led 24-hour service with full resuscitation facilities and designated accommodation for the reception of accident and emergency patients."
 dictionaryrwe[17,4]<-"2: Consultant-led mono speciality accident and emergency service (e.g. ophthalmology, dental) with designated accommodation for the reception of patients. other: Other types of A&E/minor injury activity with designated accommodation for the reception of accident and emergency patients."
 ```
 
 #### *Saving the data dictionary for CollectedDatarwe_amendeddate to the 'RawData' folder*
 ```{r w,message = FALSE, warning = FALSE}
 glimpse(dictionaryrwe)
+#Renaming the column V4 to notes
+dictionaryrwe <- rename(dictionaryrwe, notes = V4)
 write_csv(dictionaryrwe, here("RawData", "CollectedDatarwe_amendeddate_DataDictionary.csv"))
 ```
 
