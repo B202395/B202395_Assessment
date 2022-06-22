@@ -24,7 +24,7 @@ The data dictionary is in the 'RawData' folder(code at the bottom) and the data 
 # **Loading NHSR dataset**
 ## *Load packages*
 
-```{r a,message = FALSE, warning = FALSE}
+```{r a,message = FALSE, warning = FALSE, echo=FALSE}
 #Loading the packages required
 library(NHSRdatasets)
 library(tidyverse)
@@ -38,14 +38,14 @@ library(gcookbook)
 
 ## *Load data*
 
-```{r b,message = FALSE, warning = FALSE}
+```{r b,message = FALSE, warning = FALSE, echo=FALSE}
 #Loading the ae_attendances data
 data(ae_attendances)
 ```
 
 # **Viewing the data**
 ## *Basic overview of the data*
-```{r c,message = FALSE, warning = FALSE}
+```{r c,message = FALSE, warning = FALSE, echo=FALSE, results='hide'}
 #Creating the object ae
 ae<-ae_attendances
 #Checking the class of ae
@@ -63,7 +63,7 @@ Details about the variables in the ae_attendances dataset can be found in the NH
 [Link to NHS R community git hub](https://github.com/nhs-r-community/NHSRdatasets). 
 
 ## *Checking for missing data*
-```{r d,message = FALSE, warning = FALSE}
+```{r d,message = FALSE, warning = FALSE, echo=FALSE, results='hide'}
 # Calculate how many NAs there are in each variable
 ae %>% 
   map(is.na) %>%
@@ -74,7 +74,7 @@ True (1) would indicate missing data. This dataset does not contain missing data
 
 # **Indexing**
 As the data will be split into training and test data, an index is assigned so that the partitioned data sets can be linked to the raw data if required in the future.
-```{r e,message = FALSE, warning = FALSE}
+```{r e,message = FALSE, warning = FALSE, echo=FALSE, results='hide'}
 ae <- rowid_to_column(ae, "index")
 ```
 
@@ -101,7 +101,7 @@ Index (integer), Type (character), Period (date), Breaches (double precision), A
 It is a tibble with 85 rows and 5 columns (variables listed above) with data from 1 April 2016 to 1 March 2019. 
 
 ## *Calculating performance*
-```{r h,message = FALSE, warning = FALSE}
+```{r h,message = FALSE, warning = FALSE, echo=FALSE}
 #Calculating the performance for RWE
 RWE_performance <- aerwe %>%
   group_by(index,period,type) %>%
